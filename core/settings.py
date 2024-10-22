@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-oe#j28rk&nk-e9k-1wegm-g*bz1z2%wjf=ust#a=38vlh9sk^%
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'posts.CustomUser'
+AUTH_USER_MODEL = 'posts_app.CustomUser'
 
 # Application definition
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts.apps.PostsConfig',
+    'posts_app.apps.PostsAppConfig',
 ]
 
 MIDDLEWARE = [
