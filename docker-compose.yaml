@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    command: >
+      sh -c "./wait-for-it.sh db:5432 -- 
+      python manage.py migrate && 
+      python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - CELERY_BROKER_URL=redis://redis:6379/0
+
+  db:
+    image: postgres:17.0
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    command: celery -A core worker --loglevel=info
+    depends_on:
+      - redis
+      - db
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+
+
+volumes:
+  postgres_data:
