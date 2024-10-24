@@ -4,7 +4,7 @@ from ninja import NinjaAPI
 from posts_app.routers import user_router, post_router, comment_router
 
 
-api = NinjaAPI()
+api = NinjaAPI(urls_namespace='api')
 
 # Add routers
 api.add_router("/users/", user_router)

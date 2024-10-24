@@ -10,7 +10,8 @@ from jwt.exceptions import InvalidTokenError
 class JWTAuth(HttpBearer):
     def authenticate(self, request, token):
         try:
-            _, token = token.split(' ')
+            if 'Bearer' in token:
+                _, token = token.split(' ')
             decoded = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_model = get_user_model()
             user = user_model.objects.get(pk=decoded['id'])

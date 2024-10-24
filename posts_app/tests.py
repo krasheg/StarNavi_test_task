@@ -10,12 +10,12 @@ class APITests(TestCase):
         self.user_model = get_user_model()
 
         # URL for endpoints
-        self.create_post_url = reverse('post_router:create_post')
-        self.create_comment_url = reverse('comment_router:create_comment')
-        self.analytics_url = reverse('comment_router:comments_daily_breakdown')
-        self.login_url = reverse('user_router:login_user')
-        self.register_url = reverse('user_router:register_user')
-        self.set_autoreply_url = reverse('user_router:set_autoreply')
+        self.create_post_url = reverse('api:create_post')
+        self.create_comment_url = reverse('api:create_comment')
+        self.analytics_url = reverse('api:comments_daily_breakdown')
+        self.login_url = reverse('api:login_user')
+        self.register_url = reverse('api:register_user')
+        self.set_autoreply_url = reverse('api:set_autoreply')
 
         # Register user via api
         register_payload = {
@@ -23,6 +23,7 @@ class APITests(TestCase):
             "password": "testpassword"
         }
         register_response = self.client.post(self.register_url, register_payload, content_type='application/json')
+        self.user = self.user_model.objects.get(username='testuser')
         self.assertEqual(register_response.status_code, 200)
 
         # Login user for fetching JWT
@@ -80,9 +81,10 @@ class APITests(TestCase):
         self.assertIn('blocked', response.json())
 
     def test_comment_analytics(self):
+        test_post, _ = Post.objects.get_or_create(author=self.user, title="Test Post", content="Test content", blocked=False)
 
-        Comment.objects.create(author=self.user, post_id=1, content="Comment 1", blocked=False)
-        Comment.objects.create(author=self.user, post_id=1, content="Comment 2", blocked=True)
+        Comment.objects.create(author=self.user, post=test_post, content="Comment 1", blocked=False)
+        Comment.objects.create(author=self.user, post=test_post, content="Comment 2", blocked=True)
 
         params = {
             'date_from': '2022-01-01',

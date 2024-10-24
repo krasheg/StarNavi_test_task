@@ -28,7 +28,6 @@ def login_user(request, payload: LoginUserSchema):
     password = payload.password
     user = authenticate(username=username, password=password)
     if user is not None:
-        print(user.password)
         payload = {
             'id': user.id,
             'username': user.username,

@@ -39,7 +39,6 @@ def create_comment(request, payload: CommentSchema):
     post = get_object_or_404(Post, pk=payload.post_id)
     post_author = post.author
     if post_author.autoreply and not blocked:
-        print('post_author', post_author)
         ai_answer_with_delay.delay(post_author.id, post.id, comment.id)
     response = {"id": comment.id, "content": comment.content, 'blocked': blocked}
     if parent:

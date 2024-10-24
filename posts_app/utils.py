@@ -9,5 +9,5 @@ def build_comment_tree(comments):
         if parent_id is None:
             tree_comments.append(comment)
         else:
-            comment_dict[parent_id]['children'].append(comment)
+            comment_dict[parent_id]['answers'].append(comment)
     return tree_comments

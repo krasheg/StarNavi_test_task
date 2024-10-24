@@ -6,9 +6,7 @@ import time
 
 @shared_task
 def ai_answer_with_delay(post_author_id: int, post_id: int, comment_id: int):
-    print(f"Received post_author_id: {post_author_id}, post_id: {post_id}, comment_id: {comment_id}")
     post_author = CustomUser.objects.get(id=post_author_id)
-    print(f"Fetched post_author: {post_author} with autoreply_delay: {post_author.autoreply_delay}")
     post = Post.objects.get(id=post_id)
     comment = Comment.objects.get(id=comment_id)
     delay = post_author.autoreply_delay
