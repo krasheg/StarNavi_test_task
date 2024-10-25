@@ -32,7 +32,10 @@ This project provides an API for managing posts and comments, including user reg
 4. Create .env with all necessary variables
     ```bash
    cp .env_example .env
-***THIS API KEY FOR AI CANNOT BE USED FROM UKRAINE (I USE VPN)***
+   ```
+   ***THIS API KEY FOR AI CANNOT BE USED FROM UKRAINE (I USE VPN)***
+
+
 5. Grant execute permissions to the bash script.
     ```bash
    sudo chmod +x wait-for-it.sh
