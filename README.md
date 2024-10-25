@@ -29,13 +29,19 @@ This project provides an API for managing posts and comments, including user reg
 
 2. Ensure that you have Docker and Docker Compose installed.
 3. Open the terminal and navigate to the project directory.
-4. Run the following command to build and start the application in the background:
+4. Create .env with all necessary variables
+    ```bash
+   cp .env_example .env
+5. Grant execute permissions to the bash script.
+    ```bash
+   sudo chmod +x wait-for-it.sh
+6. Run the following command to build and start the application in the background:
     ```bash
     docker-compose up -d --build
-5. After the containers are built and running, the API will be available at: 
+7. After the containers are built and running, the API will be available at: 
     ```bash
     http://localhost:8000/api/
-6. The following services will be available:
+8. The following services will be available:
 
 - API: 
 
