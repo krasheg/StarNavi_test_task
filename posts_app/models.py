@@ -35,7 +35,7 @@ class Comment(models.Model):
             'author': self.author.pk,
             'content': self.content,
             'date_posted': self.date_posted,
-            'children': []
+            'answers': []
         }
         if self.parent:
             result.update({'parent': self.parent.pk})
